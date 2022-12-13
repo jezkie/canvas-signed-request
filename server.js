@@ -17,7 +17,7 @@ app.get('/', (req, res) => {
     res.sendFile(process.cwd()+"/dist/canvas-signed-request/index.html");
 });
 
-app.get('/token', (req, res) => { 
+app.get('/signed-request', (req, res) => { 
     let rawData = fs.readFileSync('sr.json');
     let sr = JSON.parse(rawData);
     console.log(sr);
@@ -36,7 +36,9 @@ app.post('/my-app', (req, res) => {
         var envelope = JSON.parse(new Buffer(encoded_envelope, "base64").toString("ascii"));
         console.log('oauthToken', envelope.client.oauthToken);
 
-        const sr = { 'oauthToken' : envelope.client.oauthToken };
+        // const sr = { 'oauthToken' : envelope.client.oauthToken };
+        const sr = envelope;
+        
         fs.writeFile('sr.json', JSON.stringify(sr), err => {
             // console.log(err);
             res.sendFile(process.cwd() + "/dist/canvas-signed-request/index.html");

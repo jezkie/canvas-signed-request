@@ -9,6 +9,6 @@ export class SignedRequestService {
   constructor(private http: HttpClient) { }
 
   getToken() {
-    return this.http.get('/token');
+    return this.http.get('/signed-request');
   }
 }
